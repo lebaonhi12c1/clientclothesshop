@@ -60,10 +60,10 @@ const Navbar = () => {
                                         <Link to={'/about'}>About</Link>
                                         <Link to={'/contact'}>Contact</Link>
                                         <Link to={'/store'}>Store</Link>
-                                        <div className='controls'>
+                                        <Link to={'/products'}className='controls' onClick={()=>setopenlist(false)}>
                                             <SearchIcon/>
                                             <span>Search your item</span>
-                                        </div>
+                                        </Link>
                                         <div className='controls'>
                                             <PersonOutlineOutlinedIcon/>
                                             <span>Login/Register</span>
@@ -110,7 +110,7 @@ const Navbar = () => {
                         <div className="nav_right_item"><Link  className='link' to='/about'>About</Link></div>
                         <div className="nav_right_item"><Link  className='link' to='/contact'>Contact</Link></div>
                         <div className="nav_right_item"><Link  className='link' to='/stores'>Stores</Link></div>
-                        <div className="nav_right_item"><SearchIcon/></div>
+                        <Link to={'/products'} className="nav_right_item"><SearchIcon/></Link>
                         <div className="nav_right_item"><PersonOutlineOutlinedIcon/></div>
                         <div className="nav_right_item"><FavoriteBorderOutlinedIcon/></div>
                         <div className="nav_right_item relative" onClick={e=>{

@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import Card from '../../component/Card/Card'
 import './products.scss'
 import { v4 as uuidv4 } from 'uuid';
+import SortIcon from '@mui/icons-material/Sort';
 const Products = () => {
   const data =[
     {
@@ -45,7 +46,7 @@ const Products = () => {
   const handldeSetRange = e =>{
     setpriceRange(e.target.value)
   }
-  console.log(priceRange)
+  const [openFilter, setOpenFilter] = useState(false)
   return (
     <div className='grid wide'>
       <div className='margin_center'>
@@ -93,6 +94,10 @@ const Products = () => {
               <div className="filter_banner">
                 <img src="https://previews.123rf.com/images/goodstudio/goodstudio1909/goodstudio190900067/130218841-banner-template-for-fashion-show-with-top-models-wearing-trendy-seasonal-clothes-walking-along-runwa.jpg" alt=""className='img' />
               </div>
+              <div className='filter-mobile' onClick={()=>setOpenFilter(true)}>
+                <span>Click here to filter your option</span>
+                <SortIcon/>
+              </div>
               <div className='products'>
                 {data.map((item)=>{
                   return <Card item={item} key={uuidv4()}/>
@@ -100,8 +105,57 @@ const Products = () => {
               </div>
             </div>
           </div>
+          
         </div>
       </div>
+     <div className='modal' style={{
+        transform: `${openFilter ?'translateX(0)':'translateX(-100vw)'}`
+     }}>
+        <div className='filter-modal' style={{
+          transform: `${openFilter ?'translateX(0)':'translateX(-300px)'}`
+        }}>
+            <div className='control'>
+                  <div className='control_heading'>Product Categories</div>
+                  <div>
+                    <div  className='control_item'>
+                      <input type="checkbox" id='hat_check' className='hat_check' />
+                      <label htmlFor="hat_check">Hat</label>
+                    </div>
+                    <div className='control_item'>
+                      <input type="checkbox" id='tshirt_check' className='tshirt_check' />
+                      <label htmlFor="tshirt_check">Tshirt</label>
+                    </div>
+                  </div>
+            </div>
+            <div className='control'>
+              <div className='control_heading'>Filter by prices</div>
+              <div className='control_item'>
+                <span>0</span>
+                <input type="range" onInput={e=>handldeSetRange(e)} min={0} max={1000} value={priceRange} />
+                <span>{priceRange}</span>
+              </div>
+            </div>
+            <div className='control'>
+              <div className='control_heading'>Sort by</div>
+              <div>
+                <div className='control_item'>
+                  <input type="radio" name='prices_filter' />
+                  <label htmlFor="">Price (Lowerst frist)</label>
+                </div>
+                <div className='control_item'>
+                  <input type="radio"name='prices_filter' />
+                  <label htmlFor="">Price (Highest frist)</label>
+                </div>
+              </div>
+            </div>
+            <div className='button' onClick={()=>setOpenFilter(false)}>
+              apply
+            </div>
+            <div className='button cancel'onClick={()=>setOpenFilter(false)}>
+              cancel
+            </div>
+        </div>
+     </div>
     </div>
   )
 }
